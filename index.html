@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Student Hub Nigeria: study resources, scholarships, quizzes, campus stories, and AI study tools." />
+  <title>Student Hub Nigeria</title>
+  <style>
+    :root{--primary:#1d4ed8;--hover:#1e40af;--light:#eff6ff;--surface:#fff;--bg:#f8fafc;--text:#0f172a;--muted:#64748b;--border:#e2e8f0;--danger:#b91c1c;--success:#047857;--radius:12px}
+    *{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;-webkit-tap-highlight-color:transparent}
+    body{background:var(--bg);color:var(--text);line-height:1.5;font-size:15px;padding-bottom:36px}
+    header{position:sticky;top:0;z-index:5;background:var(--surface);border-bottom:1px solid var(--border);padding:12px 16px;display:flex;justify-content:space-between;align-items:center}
+    .brand{font-weight:800;font-size:1.1rem;color:var(--primary);text-decoration:none}.badge{background:#e0f2fe;color:#0369a1;font-size:11px;padding:3px 7px;border-radius:999px;font-weight:700}
+    .container{max-width:650px;margin:auto;padding:16px}.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px;box-shadow:0 1px 3px #00000008}
+    h1{font-size:1.65rem;color:var(--primary);margin:12px 0 8px}h2{font-size:1.2rem;margin-bottom:10px}h3{font-size:1rem;margin-bottom:6px}p{color:var(--muted);font-size:.94rem;margin-bottom:12px}
+    .alert{display:none;padding:12px;border-radius:8px;margin-bottom:16px;font-size:14px}.error{background:#fef2f2;color:var(--danger);border:1px solid #fecaca}.success{background:#f0fdf4;color:var(--success);border:1px solid #bbf7d0}
+    .form-group{margin-bottom:14px}label{display:block;font-size:.85rem;font-weight:650;margin-bottom:6px}input{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:15px;outline:none}input:focus{border-color:var(--primary)}
+    .btn{width:100%;padding:12px 15px;border:0;border-radius:8px;font-size:15px;font-weight:650;cursor:pointer;margin-top:7px}.primary{background:var(--primary);color:white}.primary:active{background:var(--hover)}.outline{background:white;border:1.5px solid var(--primary);color:var(--primary)}.small{width:auto;padding:7px 12px;font-size:13px}.logout{background:#fee2e2;color:var(--danger);border:1px solid #fecaca}
+    .view{display:none}.view.active{display:block}.tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;margin-bottom:16px}.tab-btn{white-space:nowrap;padding:8px 13px;border-radius:999px;background:white;border:1px solid var(--border);font-size:13px;font-weight:650;color:var(--muted)}.tab-btn.active{background:var(--primary);color:white;border-color:var(--primary)}
+    .dash-tab{display:none}.dash-tab.active{display:block}.item{border:1px solid var(--border);background:#fafafa;border-radius:8px;padding:14px;margin-bottom:12px}.tag{font-size:11px;font-weight:750;text-transform:uppercase;color:var(--primary);display:inline-block;margin-bottom:4px}
+    .quiz-option{display:block;width:100%;text-align:left;padding:11px;border:1px solid var(--border);border-radius:8px;margin-bottom:8px;background:#fff;cursor:pointer}.quiz-option:hover{border-color:var(--primary);background:var(--light)}.quiz-result{display:none;margin-top:10px;padding:10px;border-radius:6px;font-weight:700}
+    a{color:var(--primary)}.muted-note{font-size:12px;color:var(--muted)}button:disabled{opacity:.65}
+  </style>
+</head>
+<body>
+<header>
+  <a href="#" class="brand" id="brand-home">Student Hub <span class="badge">NG</span></a>
+  <div id="header-actions" style="display:none"><button class="btn small logout" id="logout-btn">Log out</button></div>
+</header>
+<main class="container">
+  <div id="alert-box" class="alert" role="status" aria-live="polite"></div>
+
+  <section id="view-welcome" class="view active">
+    <div class="card" style="text-align:center;padding:30px 16px">
+      <span class="badge" style="font-size:13px;padding:5px 10px">For Nigerian Students</span>
+      <h1>Student Hub Nigeria</h1>
+      <p>Explore scholarship information, JAMB and WAEC study resources, practice quizzes, campus stories, and useful AI study tools.</p>
+      <button class="btn primary" data-view="view-login">Sign In to Dashboard</button>
+      <button class="btn outline" data-view="view-register">Create Free Account</button>
+    </div>
+    <div class="card"><h3>What you can explore</h3>
+      <p>🎓 Scholarship information and official application links.</p>
+      <p>📚 Study resources for JAMB, WAEC, and university students.</p>
+      <p>📝 Practice questions to test your knowledge.</p>
+      <p>🤖 Helpful AI tools for studying and research.</p>
+      <p class="muted-note">Always confirm scholarship deadlines and requirements on the official provider's website.</p>
+    </div>
+  </section>
+
+  <section id="view-login" class="view">
+    <div class="card"><h2>Sign In</h2><p>Access your Student Hub Nigeria account.</p>
+      <form id="form-login">
+        <div class="form-group"><label for="login-email">Email address</label><input type="email" id="login-email" autocomplete="email" placeholder="student@example.com" required></div>
+        <div class="form-group"><label for="login-password">Password</label><input type="password" id="login-password" autocomplete="current-password" minlength="6" placeholder="Your password" required></div>
+        <button class="btn primary" type="submit" id="login-btn">Sign In</button>
+      </form>
+      <p style="text-align:center;margin-top:16px"><a href="#" data-view="view-reset">Forgot password?</a></p>
+      <p style="text-align:center">No account? <a href="#" data-view="view-register">Register here</a></p>
+    </div>
+  </section>
+
+  <section id="view-register" class="view">
+    <div class="card"><h2>Create your account</h2><p>Register with your email address and a password of at least six characters.</p>
+      <form id="form-register">
+        <div class="form-group"><label for="reg-email">Email address</label><input type="email" id="reg-email" autocomplete="email" placeholder="student@example.com" required></div>
+        <div class="form-group"><label for="reg-password">Create password</label><input type="password" id="reg-password" autocomplete="new-password" minlength="6" placeholder="At least 6 characters" required></div>
+        <button class="btn primary" type="submit" id="register-btn">Create Account</button>
+      </form>
+      <p style="text-align:center;margin-top:16px">Already registered? <a href="#" data-view="view-login">Sign in</a></p>
+    </div>
+  </section>
+
+  <section id="view-reset" class="view">
+    <div class="card"><h2>Reset password</h2><p>Enter the email address linked to your account. Firebase will send a reset email.</p>
+      <form id="form-reset"><div class="form-group"><label for="reset-email">Email address</label><input type="email" id="reset-email" autocomplete="email" required placeholder="student@example.com"></div>
+      <button class="btn primary" type="submit" id="reset-btn">Send reset email</button></form>
+      <button class="btn outline" data-view="view-login">Back to sign in</button>
+    </div>
+  </section>
+
+  <section id="view-dashboard" class="view">
+    <div class="card" style="padding:14px 18px"><span class="muted-note">Signed in as</span><h2 id="user-email" style="color:var(--primary);overflow-wrap:anywhere;margin:0"></h2></div>
+    <nav class="tabs" aria-label="Dashboard sections">
+      <button class="tab-btn active" data-tab="tab-scholarships">Scholarships</button>
+      <button class="tab-btn" data-tab="tab-study">Study Materials</button>
+      <button class="tab-btn" data-tab="tab-quiz">Practice Quizzes</button>
+      <button class="tab-btn" data-tab="tab-stories">Trending Stories</button>
+      <button class="tab-btn" data-tab="tab-ai">AI Tools</button>
+    </nav>
+    <div id="tab-scholarships" class="dash-tab active">
+      <div class="item"><span class="tag">Scholarship information</span><h3>MTN Foundation Scholarship</h3><p>Check the official MTN Foundation website for current eligibility, application dates, and award details.</p><a href="https://www.mtn.ng/" target="_blank" rel="noopener">Visit MTN Nigeria</a></div>
+      <div class="item"><span class="tag">Federal Government</span><h3>Bilateral Education Agreement (BEA)</h3><p>Check the Federal Ministry of Education for current foreign scholarship announcements and requirements.</p><a href="https://education.gov.ng/" target="_blank" rel="noopener">Visit Federal Ministry of Education</a></div>
+      <div class="item"><span class="tag">Oil and gas</span><h3>PTDF Scholarships</h3><p>Check the official PTDF website for available scholarship schemes and application notices.</p><a href="https://ptdf.gov.ng/" target="_blank" rel="noopener">Visit PTDF</a></div>
+      <p class="muted-note">These are starting points, not confirmation that applications are currently open.</p>
+    </div>
+    <div id="tab-study" class="dash-tab">
+      <div class="item"><span class="tag">JAMB / UTME</span><h3>Use of English revision</h3><p>Revise comprehension, vocabulary, grammar, oral English, and the current prescribed literature text. Confirm the current text with JAMB.</p><a href="https://www.jamb.gov.ng/" target="_blank" rel="noopener">Official JAMB website</a></div>
+      <div class="item"><span class="tag">WAEC / SSCE</span><h3>Mathematics revision</h3><p>Practice algebra, geometry, statistics, trigonometry, and word problems using your syllabus and past questions.</p><a href="https://www.waecnigeria.org/" target="_blank" rel="noopener">WAEC Nigeria</a></div>
+      <div class="item"><span class="tag">University</span><h3>Study plan</h3><p>Organize your lecture notes by course, make weekly revision targets, and test yourself after each topic.</p></div>
+    </div>
+    <div id="tab-quiz" class="dash-tab">
+      <div class="card"><span class="tag">Quick English test</span><h3>Choose the word opposite in meaning to “evasive.”</h3>
+        <button class="quiz-option" data-correct="false">A. Complicated</button><button class="quiz-option" data-correct="true">B. Frank and direct</button><button class="quiz-option" data-correct="false">C. Clever</button><button class="quiz-option" data-correct="false">D. Vague</button>
+        <div id="quiz-result" class="quiz-result"></div><button class="btn outline" id="quiz-reset">Try again</button>
+      </div>
+    </div>
+    <div id="tab-stories" class="dash-tab">
+      <div class="item"><span class="tag">Admissions guidance</span><h3>Checking admission information safely</h3><p>Use official JAMB and your institution's portal to check admission status. Avoid paying unknown people who promise admission.</p><a href="https://www.jamb.gov.ng/" target="_blank" rel="noopener">Visit JAMB</a></div>
+      <div class="item"><span class="tag">Student support</span><h3>Student loan information</h3><p>Check official NELFUND announcements and your institution's guidance for current application steps.</p><a href="https://nelf.gov.ng/" target="_blank" rel="noopener">Visit NELFUND</a></div>
+      <p class="muted-note">This demo contains starter content. Verify news and dates before relying on or publishing them.</p>
+    </div>
+    <div id="tab-ai" class="dash-tab">
+      <div class="item"><span class="tag">Research</span><h3>Perplexity</h3><p>Use AI-assisted search to explore a topic, then check the original sources.</p><a href="https://www.perplexity.ai/" target="_blank" rel="noopener">Open Perplexity</a></div>
+      <div class="item"><span class="tag">Math and science</span><h3>WolframAlpha</h3><p>Explore calculations and mathematical concepts. Check each step against your course materials.</p><a href="https://www.wolframalpha.com/" target="_blank" rel="noopener">Open WolframAlpha</a></div>
+      <div class="item"><span class="tag">Writing</span><h3>Grammarly</h3><p>Review spelling and grammar, while making sure the final work reflects your own understanding.</p><a href="https://www.grammarly.com/" target="_blank" rel="noopener">Open Grammarly</a></div>
+    </div>
+  </section>
+  <p class="muted-note" style="text-align:center">Student Hub Nigeria • Starter version. Verify information with official sources.</p>
+</main>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDE21PjNGcX0N_BBOYTEzswT1kQUJ48kTA",
+    authDomain: "student-hub-nigeria.firebaseapp.com",
+    projectId: "student-hub-nigeria",
+    storageBucket: "student-hub-nigeria.firebasestorage.app",
+    messagingSenderId: "253581888192",
+    appId: "1:253581888192:web:f7ba7aed9dc350176d3b25",
+    measurementId: "G-CR78GB5MVS"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const alertBox = document.getElementById("alert-box");
+
+  function alertUser(message, isError = true) {
+    alertBox.textContent = message;
+    alertBox.className = "alert " + (isError ? "error" : "success");
+    alertBox.style.display = "block";
+    window.scrollTo({top: 0, behavior: "smooth"});
+  }
+  function clearAlert() { alertBox.style.display = "none"; alertBox.textContent = ""; }
+  function showView(id) {
+    clearAlert();
+    document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+    document.getElementById(id)?.classList.add("active");
+  }
+  document.querySelectorAll("[data-view]").forEach(el => el.addEventListener("click", e => {
+    e.preventDefault();
+    if (el.dataset.view === "view-dashboard" && !auth.currentUser) return showView("view-login");
+    showView(el.dataset.view);
+  }));
+  document.getElementById("brand-home").addEventListener("click", e => {
+    e.preventDefault();
+    showView(auth.currentUser ? "view-dashboard" : "view-welcome");
+  });
+
+  function readableError(code) {
+    const messages = {
+      "auth/invalid-email": "Please enter a valid email address.",
+      "auth/email-already-in-use": "This email is already registered. Please sign in instead.",
+      "auth/weak-password": "Please use a password with at least 6 characters.",
+      "auth/invalid-credential": "Incorrect email or password. Please check and try again.",
+      "auth/user-not-found": "No account was found for that email address.",
+      "auth/wrong-password": "Incorrect email or password. Please check and try again.",
+      "auth/too-many-requests": "Too many attempts. Please wait a while and try again.",
+      "auth/network-request-failed": "Network error. Check your internet connection and try again.",
+      "auth/operation-not-allowed": "Email/Password sign-in is not enabled in Firebase Authentication.",
+      "auth/unauthorized-domain": "This website domain is not authorized in Firebase Authentication. Add its domain in Firebase Console."
+    };
+    return messages[code] || ("Something went wrong: " + code);
+  }
+  async function handleForm(formId, buttonId, busyText, successAction) {
+    document.getElementById(formId).addEventListener("submit", async e => {
+      e.preventDefault(); clearAlert();
+      const btn = document.getElementById(buttonId);
+      const oldText = btn.textContent;
+      btn.disabled = true; btn.textContent = busyText;
+      try { await successAction(); }
+      catch (err) { alertUser(readableError(err.code || "unknown-error")); }
+      finally { btn.disabled = false; btn.textContent = oldText; }
+    });
+  }
+
+  handleForm("form-register", "register-btn", "Creating account...", async () => {
+    const email = document.getElementById("reg-email").value.trim();
+    const password = document.getElementById("reg-password").value;
+    await createUserWithEmailAndPassword(auth, email, password);
+    alertUser("Account created successfully!", false);
+  });
+  handleForm("form-login", "login-btn", "Signing in...", async () => {
+    const email = document.getElementById("login-email").value.trim();
+    const password = document.getElementById("login-password").value;
+    await signInWithEmailAndPassword(auth, email, password);
+  });
+  handleForm("form-reset", "reset-btn", "Sending email...", async () => {
+    const email = document.getElementById("reset-email").value.trim();
+    await sendPasswordResetEmail(auth, email);
+    alertUser("If an account exists for that email, a password reset email has been sent. Check your inbox and spam folder.", false);
+  });
+
+  document.getElementById("logout-btn").addEventListener("click", async () => {
+    try { await signOut(auth); } catch (err) { alertUser(readableError(err.code || "unknown-error")); }
+  });
+  onAuthStateChanged(auth, user => {
+    document.getElementById("header-actions").style.display = user ? "block" : "none";
+    if (user) {
+      document.getElementById("user-email").textContent = user.email || "Student";
+      showView("view-dashboard");
+    } else {
+      showView("view-welcome");
+    }
+  });
+
+  document.querySelectorAll("[data-tab]").forEach(btn => btn.addEventListener("click", () => {
+    document.querySelectorAll("[data-tab]").forEach(b => b.classList.toggle("active", b === btn));
+    document.querySelectorAll(".dash-tab").forEach(tab => tab.classList.toggle("active", tab.id === btn.dataset.tab));
+  }));
+  document.querySelectorAll(".quiz-option").forEach(btn => btn.addEventListener("click", () => {
+    const result = document.getElementById("quiz-result");
+    result.style.display = "block";
+    const correct = btn.dataset.correct === "true";
+    result.textContent = correct ? "Correct! Evasive means avoiding a clear or direct answer." : "Not quite. The opposite of evasive is frank and direct.";
+    result.style.background = correct ? "#dcfce7" : "#fef2f2";
+    result.style.color = correct ? "#166534" : "#991b1b";
+  }));
+  document.getElementById("quiz-reset").addEventListener("click", () => {
+    const result = document.getElementById("quiz-result");
+    result.style.display = "none"; result.textContent = "";
+  });
+</script>
+</body>
+</html>
